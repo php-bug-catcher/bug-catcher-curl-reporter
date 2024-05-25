@@ -1,0 +1,28 @@
+{
+  "name": "php-sentinel/bug-catcher-curl-reporter",
+  "type": "library",
+  "license": "MIT",
+  "description": "Library to report exceptions to Bug Catcher",
+  "minimum-stability": "stable",
+  "require": {
+    "kregel/exception-probe": "^1.0",
+    "ext-curl": "*",
+    "php": ">=8.1"
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "autoload": {
+    "psr-4": {
+      "BugCatcher\\Reporter\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "BugCatcher\\Reporter\\Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.5"
+  }
+}
