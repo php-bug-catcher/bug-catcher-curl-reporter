@@ -9,7 +9,7 @@ composer require php-sentinel/bug-catcher-curl-reporter
 ## Try it
 
 ```php
-$curlReporter = new CurlReporter(
+$curlReporter = new \BugCatcher\Reporter\CurlReporter(
     "https://YourBugTrackerInstance.com:8000",
     'projectName',
     true
