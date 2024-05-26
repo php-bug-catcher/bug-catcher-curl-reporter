@@ -57,6 +57,9 @@ class CurlReporter {
 	}
 
 	private function request(string $method, string $url, array|string $data = [], array $headers = []): array {
+		$headers = array_map(function ($key, $value) {
+			return $key . ': ' . $value;
+		}, array_keys($headers), $headers);
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $this->url . $url);
 		if ($method === "POST") {
@@ -68,9 +71,7 @@ class CurlReporter {
 		curl_setopt($ch, CURLOPT_TIMEOUT, 20);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array_map(function ($key, $value) {
-			return $key . ': ' . $value;
-		}, array_keys($headers), $headers));
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 		$response = curl_exec($ch);
 		curl_close($ch);
 

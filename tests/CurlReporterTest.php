@@ -23,7 +23,7 @@ class CurlReporterTest extends TestCase {
 		$curlReporter = new CurlReporter(
 			"https://127.0.0.1:8000",
 			'dev',
-			true,
+			true
 		);
 		try {
 			throw new Exception("Test exception");
