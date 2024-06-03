@@ -3,7 +3,7 @@
 ## Setup
 
 ```
-composer require php-sentinel/bug-catcher-curl-reporter
+composer require php-sentinel/bug-catcher-curl-reporter:dev-main
 ```
 
 ## Try it
