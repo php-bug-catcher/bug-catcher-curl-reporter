@@ -25,14 +25,18 @@ class CurlReporter {
 		if ($this->stackTrace) {
 			$stackTrace = $this->collectFrames($exception->getTraceAsString());
 		}
+		$path = '/api/record_logs';
 		$data = [
-			"message"     => $exception->getMessage(),
-			"level"       => 500,
+			"message" => $message,
+			"level"       => $record->level->value,
 			"projectCode" => $this->project,
-			"requestUri"  => $this->getUri(),
-			'stackTrace'  => $stackTrace,
+			"requestUri"  => $this->uriCatcher->getUri(),
 		];
-		[$status, $response] = $this->request("POST", "/api/log_records", json_encode($data), [
+		if ($stackTrace) {
+			$path = '/api/record_log_traces';
+			$data['stackTrace'] = $stackTrace;
+		}
+		[$status, $response] = $this->request("POST", $path, json_encode($data), [
 			'Content-Type' => 'application/json',
 			'accept'       => 'application/json',
 		]);
