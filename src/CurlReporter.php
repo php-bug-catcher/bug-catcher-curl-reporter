@@ -27,10 +27,10 @@ class CurlReporter {
 		}
 		$path = '/api/record_logs';
 		$data = [
-			"message" => $message,
-			"level"       => $record->level->value,
+			"message"    => $exception->getMessage(),
+			"level"      => 500,
 			"projectCode" => $this->project,
-			"requestUri"  => $this->uriCatcher->getUri(),
+			"requestUri" => $this->getUri(),
 		];
 		if ($stackTrace) {
 			$path = '/api/record_log_traces';
