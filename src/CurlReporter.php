@@ -27,7 +27,7 @@ class CurlReporter {
 		}
 		$path = '/api/record_logs';
 		$data = [
-			"message"    => $exception->getMessage(),
+			"message" => substr($exception->getMessage(), 0, 750),
 			"level"      => 500,
 			"projectCode" => $this->project,
 			"requestUri" => $this->getUri(),
