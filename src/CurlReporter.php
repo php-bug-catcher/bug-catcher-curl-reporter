@@ -20,7 +20,7 @@ class CurlReporter {
 		private readonly bool   $stackTrace = false,
 	) {}
 
-	public function reportException(Throwable $exception): void {
+	public function reportException(Throwable $exception, bool $throwOnFailed = false): void {
 		$stackTrace = null;
 		if ($this->stackTrace) {
 			$stackTrace = $this->collectFrames($exception->getTraceAsString());
@@ -41,7 +41,11 @@ class CurlReporter {
 			'accept'       => 'application/json',
 		]);
 		if ($status !== 201) {
-			throw new Exception("Error during sending log record to BugCatcher.\n" . $response);
+			if ($throwOnFailed) {
+				throw new Exception("Error during sending log record to BugCatcher.\n" . $response);
+			} else {
+				echo "Error during sending log record to BugCatcher.\n" . $response . PHP_EOL;
+			}
 		}
 	}
 
