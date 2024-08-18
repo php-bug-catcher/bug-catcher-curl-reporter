@@ -1,5 +1,5 @@
 {
-  "name": "php-sentinel/bug-catcher-curl-reporter",
+  "name": "php-bug-catcher/bug-catcher-curl-reporter",
   "type": "library",
   "license": "MIT",
   "description": "Library to report exceptions to Bug Catcher",
