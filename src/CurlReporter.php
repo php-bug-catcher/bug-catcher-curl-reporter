@@ -23,7 +23,7 @@ class CurlReporter {
 	public function reportException(Throwable $exception, bool $throwOnFailed = false): void {
 		$stackTrace = null;
 		if ($this->stackTrace) {
-			$stackTrace = $this->collectFrames($exception->getTraceAsString());
+			$stackTrace = $this->collectFramesFromThrowable($exception);
 		}
 		$path = '/api/record_logs';
 		$data = [
@@ -55,6 +55,12 @@ class CurlReporter {
 		return serialize($stacktrace);
 	}
 
+	public function collectFramesFromThrowable(Throwable $exception): string {
+		$stacktrace = (new ThrowSiteStacktrace())->parseThrowable($exception);
+
+		return serialize($stacktrace);
+	}
+
 	public function getUri() {
 		$url = ($_SERVER['REQUEST_URI']??'');
 		if (!$url && isset($argv) && is_array($argv)) {
@@ -64,7 +70,7 @@ class CurlReporter {
 		return $url;
 	}
 
-	private function request(string $method, string $url, array|string $data = [], array $headers = []): array {
+	protected function request(string $method, string $url, array|string $data = [], array $headers = []): array {
 		$headers = array_map(function ($key, $value) {
 			return $key . ': ' . $value;
 		}, array_keys($headers), $headers);
